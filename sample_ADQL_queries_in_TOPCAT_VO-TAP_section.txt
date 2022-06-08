@@ -1,0 +1,6 @@
+select hipno,ra,dec,vmag from hipparcos.main where vmag<9 and ra between 0 and 100 and dec<-30
+
+select hipno,sptype,parallax*3.6E6 as parallax_mas from hipparcos.main where sptype like 'G2V%' and e_parallax<0.1*parallax
+
+select top 100  name,raj2000,dej2000,power(10,met) as metal_fraction,3.6e6*sqrt(power(e_pmra,2)+power(e_pmde,2)) as pm_err from rave.dr3 where teff>7000 and imag<12 and abs(rv)>100 order by metal_fraction desc
+
