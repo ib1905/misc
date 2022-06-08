@@ -4,3 +4,15 @@ select hipno,sptype,parallax*3.6E6 as parallax_mas from hipparcos.main where spt
 
 select top 100  name,raj2000,dej2000,power(10,met) as metal_fraction,3.6e6*sqrt(power(e_pmra,2)+power(e_pmde,2)) as pm_err from rave.dr3 where teff>7000 and imag<12 and abs(rv)>100 order by metal_fraction desc
 
+select min(period)/(3600*24) as min_days,max(period)/(3600*24) as max_days,count(*) as numstars from hipparcos.main where period is not null
+-- column is null / is not null --
+
+select round(vmag) as bins,avg(3.6e6*e_parallax) as avg_err,count(*) as N from hipparcos.main group by bins order by bins
+
+select hipno,comname,sptype from hipparcos.main join fk6.part1 using(hipno)
+-- in case of different columns names --
+select h.hipno,comname,sptype from fk6.part1 as f inner join hipparcos.main as h on h.hipno=f.hipno
+
+select hipno,comname,sptype from fk6.part1 left outer join hipparcos.main using(hipno) where sptype like '%III%'
+
+select * from hipparcos.main where vmag between 6 and 8 and 1=contains(point('icrs',ra,dec),circle('icrs',130,-79,10))
