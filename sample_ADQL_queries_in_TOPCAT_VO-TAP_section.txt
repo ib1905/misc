@@ -18,3 +18,12 @@ select hipno,comname,sptype from fk6.part1 left outer join hipparcos.main using(
 select * from hipparcos.main where vmag between 6 and 8 and 1=contains(point('icrs',ra,dec),circle('icrs',130,-79,10))
 
 SELECT * FROM hipparcos.main AS h WHERE EXISTS (SELECT 1 FROM rave.dr3 AS r WHERE 1=CONTAINS(POINT('ICRS',r.raj2000,r.dej2000),CIRCLE('ICRS',h.ra,h.dec,1/3600)))
+
+-- additional examples
+
+SELECT TOP 10
+POWER(10, alfa_fe) AS sol_ratio,
+SQRT(POWER(e_pmde, 2)+POWER(e_pmra, 2)) AS errTot FROM rave.dr2
+-- floating point example: 4.5e-8
+-- strings in 'single quotes'
+-- LIKE supports %, *, ? and _ (check!)
