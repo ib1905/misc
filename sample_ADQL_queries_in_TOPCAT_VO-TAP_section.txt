@@ -16,3 +16,5 @@ select h.hipno,comname,sptype from fk6.part1 as f inner join hipparcos.main as h
 select hipno,comname,sptype from fk6.part1 left outer join hipparcos.main using(hipno) where sptype like '%III%'
 
 select * from hipparcos.main where vmag between 6 and 8 and 1=contains(point('icrs',ra,dec),circle('icrs',130,-79,10))
+
+SELECT * FROM hipparcos.main AS h WHERE EXISTS (SELECT 1 FROM rave.dr3 AS r WHERE 1=CONTAINS(POINT('ICRS',r.raj2000,r.dej2000),CIRCLE('ICRS',h.ra,h.dec,1/3600)))
