@@ -27,3 +27,19 @@ SQRT(POWER(e_pmde, 2)+POWER(e_pmra, 2)) AS errTot FROM rave.dr2
 -- floating point example: 4.5e-8
 -- strings in 'single quotes'
 -- LIKE supports %, *, ? and _ (check!)
+
+SELECT TOP 10
+POWER(10, alfa_Fe) AS sol_ratio,
+SQRT(e_pmde*e_pmde+e_pmra*e_pmra) AS errTot FROM rave.dr2
+ORDER BY sol_ratio
+
+SELECT count(*) AS numEntries FROM rave.dr3
+
+SELECT MAX(teff) AS maxTeff, MIN(teff) AS minTeff, AVG(teff) AS avgTeff, RAND()*100 AS random_no, PI() AS pi_constant FROM rave.dr3
+
+SELECT name FROM rave.dr3 WHERE
+obsdate > '2005-02-02' AND imag < 12
+AND ABS(rv) > 100
+
+SELECT COUNT(*) AS n, ROUND(mv) AS bin, AVG(color) AS colav FROM dmubin.main GROUP BY bin ORDER BY bin
+
