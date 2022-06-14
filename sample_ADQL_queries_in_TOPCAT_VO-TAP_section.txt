@@ -43,3 +43,12 @@ AND ABS(rv) > 100
 
 SELECT COUNT(*) AS n, ROUND(mv) AS bin, AVG(color) AS colav FROM dmubin.main GROUP BY bin ORDER BY bin
 
+SELECT ivo_healpix_index(5, raj2000, dej2000) AS bin, COUNT(*) AS n, AVG(rv) AS meanrv, MAX(rv)-AVG(rv) AS updev, AVG(rv)-MIN(rv) AS lowdev FROM rave.main WHERE e_rv < 20 GROUP BY bin HAVING COUNT(*)>5
+
+SELECT TOP 10 lat, long, flux FROM lightmeter.measurements JOIN lightmeter.stations USING (stationid)
+
+SELECT TOP 20 hipno, name FROM dmubin.main AS dmu LEFT OUTER JOIN rave.dr3 AS rave ON (dmu.mv BETWEEN rave.imag-0.05 AND rave.imag+0.05)
+
+SELECT TOP 1000 * FROM arihip.main WHERE DISTANCE(POINT(raj2000, dej2000), POINT(189.2, 62.21)) < 10
+
+SELECT COUNT(*) AS n, ROUND((u-z)*2) AS bin FROM (SELECT TOP 4000 * FROM sdssdr7.sources) AS q GROUP BY bin ORDER BY bin
