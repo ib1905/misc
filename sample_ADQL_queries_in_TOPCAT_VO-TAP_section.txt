@@ -1,3 +1,5 @@
+-- UCD - Unified Content Descriptor
+
 select hipno,ra,dec,vmag from hipparcos.main where vmag<9 and ra between 0 and 100 and dec<-30
 
 select hipno,sptype,parallax*3.6E6 as parallax_mas from hipparcos.main where sptype like 'G2V%' and e_parallax<0.1*parallax
@@ -52,3 +54,5 @@ SELECT TOP 20 hipno, name FROM dmubin.main AS dmu LEFT OUTER JOIN rave.dr3 AS ra
 SELECT TOP 1000 * FROM arihip.main WHERE DISTANCE(POINT(raj2000, dej2000), POINT(189.2, 62.21)) < 10
 
 SELECT COUNT(*) AS n, ROUND((u-z)*2) AS bin FROM (SELECT TOP 4000 * FROM sdssdr7.sources) AS q GROUP BY bin ORDER BY bin
+
+SELECT COUNT(*)  FROM tap_schema.columns WHERE ucd LIKE 'phot.mag%'
